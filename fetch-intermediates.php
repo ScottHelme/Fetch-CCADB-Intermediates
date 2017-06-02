@@ -10,21 +10,21 @@ $data = str_getcsv($csv);
 // Step through each item in the array.
 foreach($data as $item)
 {
-    // If this item contains a PEM encoded cert.
+    // Find the start of a PEM encoded cert.
     $start = strpos($item, '-----BEGIN CERTIFICATE-----');
-
+    // If this item contains a PEM encoded cert.
     if($start !== false)
     {
         // Snip the substring of PEM data out.
         $end = strpos($item, '-----END CERTIFICATE-----', $start) + 25;
+        // Save it for later.
         $certs[] = substr($item, $start, $end - $start);
     }
 }
 
+// Format the data.
 $text = implode("\r\n\r\n", $certs)."\r\n\r\n";
-
 // Write to the output file.
-
 file_put_contents('intermediate-bundle.crt', $text);
 
 ?>
