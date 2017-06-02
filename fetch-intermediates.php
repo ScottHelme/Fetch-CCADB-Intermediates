@@ -11,10 +11,11 @@ $data = str_getcsv($csv);
 foreach($data as $item)
 {
     // If this item contains a PEM encoded cert.
-    if(strpos($item, '-----BEGIN CERTIFICATE-----') !== false)
+    $start = strpos($item, '-----BEGIN CERTIFICATE-----');
+
+    if($start !== false)
     {
         // Snip the substring of PEM data out.
-        $start = strpos($item, '-----BEGIN CERTIFICATE-----');
         $end = strpos($item, '-----END CERTIFICATE-----') + 25;
         $certs[] = substr($item, $start, $end - $start);
     }
