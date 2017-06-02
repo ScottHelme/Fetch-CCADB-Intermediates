@@ -20,14 +20,10 @@ foreach($data as $item)
     }
 }
 
-// Create a handle to the output file.
-$fh = fopen('intermediate-bundle.crt', 'w');
-// Step through and output each intermediate.
-foreach($certs as $cert)
-{
-    fwrite($fh, $cert . "\r\n\r\n");
-}
-// Close the file handle now we're done.
-fclose($fh);
+$text = implode("\r\n\r\n", $certs)."\r\n\r\n";
+
+// Write to the output file.
+
+file_put_contents('intermediate-bundle.crt', $text);
 
 ?>
