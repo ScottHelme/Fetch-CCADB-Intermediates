@@ -16,7 +16,7 @@ foreach($data as $item)
     if($start !== false)
     {
         // Snip the substring of PEM data out.
-        $end = strpos($item, '-----END CERTIFICATE-----') + 25;
+        $end = strpos($item, '-----END CERTIFICATE-----', $start) + 25;
         $certs[] = substr($item, $start, $end - $start);
     }
 }
